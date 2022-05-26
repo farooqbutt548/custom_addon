@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="main_menu_id" name="Bilal Fabrics"/>
+    <menuitem id="sub_menu_id" name="Records" parent="bilal_fabrics.main_menu_id" sequence="10"/>
+    <menuitem id="add_product_id" name="Add Products" parent="bilal_fabrics.main_menu_id" sequence="11" action="bilal_products.action_bilal_products"/>
+<!--    <menuitem id="add_sales_id" name="Add Sales" parent="bilal_fabrics.main_menu_id" sequence="12" action="sale.action_quotations_with_onboarding"/>-->
+
+    <menuitem id="all_records_id" name="All Records" parent="bilal_fabrics.sub_menu_id" sequence="1" action="bilal_fabrics.action_bilal_fabrics"/>
+    <menuitem id="debit_records_id" name="Debit Records" parent="bilal_fabrics.sub_menu_id" sequence="2" action="bilal_fabrics.debit_action_bilal_fabrics"/>
+    <menuitem id="credit_records_id" name="Credit Records" parent="bilal_fabrics.sub_menu_id" sequence="3" action="bilal_fabrics.credit_action_bilal_fabrics"/>
+
+</odoo>

@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <record id="radical_academy_list" model="ir.ui.view">
+
+            <field name="name">radical_academy list</field>
+            <field name="model">radical.academy</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="experience"/>
+                    <field name="subject"/>
+                    <field name="lectures"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="radical_academy_form" model="ir.ui.view">
+            <field name="name">radical_academy.form</field>
+            <field name="model">radical.academy</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="age"/>
+                                <field name="experience"/>
+                                <field name="is_virtual_school"/>
+                            </group>
+                            <group>
+                                <field name="subject"/>
+                                <field name="lectures"/>
+                                <field name="gender"/>
+                                <field name="school_id"/>
+                                <field name="student_list" widget="many2many_tags"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Hospital Data">
+                                <field name="school_list">
+                                    <tree editable="bottom">
+                                        <field name="ustad"/>
+                                        <field name="thatha"/>
+                                        <field name="gonga"/>
+                                        <field name="ahmed_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Patient">
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--        <record model="ir.ui.view" id="radical_extend_form">&ndash;&gt;-->
+        <!--            <field name="name">radical_extend from</field>-->
+        <!--            <field name="model">hospital.patient</field>-->
+        <!--            <field name="inherit_id" ref="hospital.patient.patient_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="teacher_id" position="after">-->
+        <!--                    <field name="school_list"/>-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="action_radical_academy">
+            <field name="name">Radical Academy</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">radical.academy</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+        <menuitem name="Radical Academy" id="radical_academy_hamaad"
+                  action="action_radical_academy"/>
+
+    </data>
+</odoo>

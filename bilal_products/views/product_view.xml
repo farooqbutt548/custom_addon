@@ -1,0 +1,43 @@
+<odoo>
+    <record id="bilal_list_view" model="ir.ui.view">
+        <field name="name">bilal_products.list</field>
+        <field name="model">bilal.products</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_name"/>
+                <field name="product_price"/>
+                <field name="product_description"/>
+                <field name="purchase_date"/>
+            </tree>
+        </field>
+    </record>
+    <!--                               Form View-->
+    <record id="bilal_form_view" model="ir.ui.view">
+        <field name="name">bilal_products.form</field>
+        <field name="model">bilal.products</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_name" placeholder="Product Name"/>
+                            <field name="product_price" placeholder="Price/Unit"/>
+                        </group>
+                        <group>
+                            <field name="product_description" placeholder="Product Description"/>
+                            <field name="purchase_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_bilal_products" model="ir.actions.act_window">
+        <field name="name">Bilal Products</field>
+        <field name="res_model">bilal.products</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="bilal_root_menu" name="Bilal Products"/>
+    <menuitem id="bilal_sub_menu" parent="bilal_root_menu" name="Bilal Products"/>
+    <menuitem id="bilal_products_menu" name="Products List" action="action_bilal_products" parent="bilal_sub_menu"/>
+</odoo>

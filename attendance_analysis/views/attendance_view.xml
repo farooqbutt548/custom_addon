@@ -1,0 +1,70 @@
+<odoo>
+    <!--                      List/Tree View-->
+    <record id="attendance_view_list" model="ir.ui.view">
+        <field name="name">attendance_analysis.list</field>
+        <field name="model">attendance.analysis</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Leadger Attendance Analysis">
+                <field name="name_type"/>
+                <field name="month"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--                       Form View-->
+    <record id="attendance_view_form" model="ir.ui.view">
+        <field name="name">attendance_analysis.form</field>
+        <field name="model">attendance.analysis</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name_type" required="1"/>
+                            <field name="month" required="1"/>
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group>
+                            <field name="employee" attrs="{'invisible':[('employee', '=', True)]}" widget="many2many_tags"/>
+<!--                            <field name="employee" widget="many2many_tags"/>-->
+                            <field name="year" required="1" options="{'datepicker':{'showType' : 'years'}}" optional="show"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--                                               Actions-->
+    <record id="action_generate_analysis" model="ir.actions.act_window">
+        <field name="name">Attendance Analysis</field>
+        <field name="res_model">attendance.analysis</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+<div>
+    <!--    <record id="debit_action_bilal_fabrics" model="ir.actions.act_window">-->
+    <!--        <field name="name">Debit Records</field>-->
+    <!--        <field name="res_model">bilal.fabrics</field>-->
+    <!--        <field name="view_mode">tree,form,search</field>-->
+    <!--        <field name="domain">[('bill_type','=','debit')]</field>-->
+    <!--        <field name="context">{'default_bill_type':'debit'}</field>-->
+    <!--    </record>-->
+
+    <!--    <record id="credit_action_bilal_fabrics" model="ir.actions.act_window">-->
+    <!--        <field name="name">Credit Records</field>-->
+    <!--        <field name="res_model">bilal.fabrics</field>-->
+    <!--        <field name="view_mode">tree,form,search</field>-->
+    <!--        <field name="domain">[('bill_type','=','credit')]</field>-->
+    <!--        <field name="context">{'default_bill_type':'credit'}</field>-->
+    <!--    </record>-->
+</div>
+    <menuitem id="attendance_root_menu" name="Attendance Analysis"/>
+    <menuitem id="attendance_sub_menu" parent="attendance_root_menu" name="Attendance Analysis"/>
+    <menuitem id="attendance_sub_menu_generate" name="Generate Attendance Analysis" action="action_generate_analysis"
+              parent="attendance_sub_menu"/>
+    <!--        <menuitem id="attendance_sub_menu_analysis" name="Attendance Analysis" action="action_bilal_fabrics" parent="attendance_sub_menu"/>-->
+</odoo>

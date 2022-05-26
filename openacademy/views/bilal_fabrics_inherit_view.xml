@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="open_academy_inherit_bilal_form" model="ir.ui.view">
+            <field name="name">open.academy.inherit.bilal.form</field>
+            <field name="model">bilal.fabrics</field>
+            <field name="inherit_id" ref="bilal_fabrics.bilal_form_view"/> <!--  bilal.fabrics External id     -->
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='seller']" position="after">
+                    <field name="email"/>
+                    <field name="zip"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

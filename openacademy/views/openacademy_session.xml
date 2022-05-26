@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Tree View-->
+    <record id="view_session_id" model="ir.ui.view">
+        <field name="name">view.session.tree</field>
+        <field name="model">openacademy.session</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="seats"/>
+            </tree>
+        </field>
+    </record>
+    <!--    Form View-->
+    <record id="session_form_view" model="ir.ui.view">
+        <field name="name">session.form.view</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <form string="Session Form">
+                <sheet>
+                    <group>
+                        <group string="General">
+                            <field name="course_id"/>
+                            <field name="name"/>
+                            <field name="instructor_id"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="start_date"/>
+                            <field name="duration"/>
+                            <field name="seats"/>
+                        </group>
+                    </group>
+                    <label for="attendee_id"/>
+                    <field name="attendee_id"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    Search-->
+    <record id="session_search_view" model="ir.ui.view">
+        <field name="name">session.search</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="seats"
+                       filter_domain="['|', ('name','ilike','self'), ('seats', 'ilike', 'self')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!--Action -->
+    <record id="session_list_action" model="ir.actions.act_window">
+        <field name="name">Session</field>
+        <field name="res_model">openacademy.session</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first Session</p>
+        </field>
+    </record>
+</odoo>

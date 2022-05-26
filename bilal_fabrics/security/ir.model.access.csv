@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bilal_fabrics,bilal.fabrics,model_bilal_fabrics,base.group_user,1,1,1,1
+access_bilal_bill,bilal.bill,model_bilal_bill,base.group_user,1,1,1,1
+access_bilal_wizard,bilal.wizard,model_bilal_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,236 @@
+<odoo>
+    <!--                      List/Tree View-->
+    <record id="bilal_list_view" model="ir.ui.view">
+        <field name="name">bilal_fabrics.list</field>
+        <field name="model">bilal.fabrics</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree string="Leadger of Bills" decoration-danger="bill_type=='credit'">
+                <field name="seq_num"/>
+                <field name="name"/>
+                <field name="address"/>
+                <field name="phone"/>
+                <field name="date"/>
+                <field name="bill_type"/>
+                <field name="seller"/>
+                <field name="left_amount"/>
+            </tree>
+        </field>
+    </record>
+    <!--                           Kanban View-->
+    <record id="bilal_kanban_view" model="ir.ui.view">
+        <field name="name">bilal.fabrics.kanban</field>
+        <field name="model">bilal.fabrics</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <kanban string="Kanban Leadger of Bills"
+                    class="o_res_partner_kanban">      <!-- # decoration-danger="bill_type=='credit'"  -->
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click"
+                             style="background-color:#17a2b8; width:180px; padding-bottom:0px">    <!-- for kanban click to show record -->
+                            <div style="background-color:#0e2e47;">
+                                <h2 style="text-align:center; background-color:#0e2e47; color: #e9f4f6">
+                                    <field name="seq_num"/>
+                                </h2>
+                                <ul style="list-style-type:none; background-color: #3a8293; color: #e9f4f6; margin-top:-5px">
+                                    <hr style="background-color:white; margin-left:-40px;"/>
+                                    <li style="margin-left:-25px; font-size:14px">
+                                        <b>Name :</b>
+                                        <field name="name"/>
+                                    </li>
+                                    <li style="margin-left:-25px; font-size:14px">
+                                        <b>Date :</b>
+                                        <field name="date"/>
+                                    </li>
+                                    <li style="margin-left:-25px; font-size:14px">
+                                        <b>Bill Type :</b>
+                                        <field name="bill_type"/>
+                                    </li>
+                                    <li style="margin-left:-25px; font-size:14px">
+                                        <b>Left Amount :</b>
+                                        <field name="left_amount"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--                           Search View-->
+    <record id="bilal_search_view" model="ir.ui.view">
+        <field name="name">bilal_fabrics.search</field>
+        <field name="model">bilal.fabrics</field>
+        <field name="arch" type="xml">
+            <search string="Search of Bills">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="seller"
+                       filter_domain="['|', '|', ('name','ilike','self'), ('phone', 'ilike', 'self'), ('seller', 'ilike', 'self')]"/>
+                <separator/>
+                <filter string="Debit Bills" name="debit_bill" domain="[('bill_type', '=', 'debit')]"/>
+                <filter string="Credit Bills" name="credit_bill" domain="[('bill_type', '=', 'credit')]"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+    <!--                       Form View-->
+    <record id="bilal_form_view" model="ir.ui.view">
+        <field name="name">bilal_fabrics.form</field>
+        <field name="model">bilal.fabrics</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="delete_one2many" string="Delete" type="object" class="oe_highlight"/>
+                    <field name="status" widget="statusbar" class="oe_highlight"/>
+                    <button name="do_unpaid" type="object" string="Unpaid" class="oe_highlight"
+                            attrs="{'invisible':[('status', '!=', 'paid')]}"/>
+                    <button name="do_paid" type="object" string="Paid" class="oe_highlight" attrs="{'invisible':[('status', '!=', 'unpaid')]}"/>
+                    <button name="report_print_button" type="object" string="Print Bill" class="oe_highlight"/>
+                </header>
+                <sheet>
+
+                    <div>
+                        <span>
+                            <img src="bilal_fabrics/static/description/Logo.png" alt="Logo" width="75" height="70"/>
+                        </span>
+                        <span>
+                            <i>
+                                <h2 style="font-family:shells; color:black;text-align:center; background-color:yellow; margin-left:100px; margin-top: -55px; line-height:3rem">
+                                    Bilal Fabrics
+                                </h2>
+                            </i>
+                        </span>
+                    </div>
+                    <h1 style="margin-top:30px">
+                        <field name="seq_num"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Name" required="1"/>
+                            <field name="address" placeholder="Address"/>
+                            <field name="phone" placeholder="Phone No."/>
+                        </group>
+                        <group>
+                            <!--                            <separator string="-" colspan="2"/>-->
+
+                            <!--                            <field name="empty"/>-->
+                            <field name="date"/>
+                            <field name="bill_type"/>
+                            <field name="seller"/>
+                        </group>
+                    </group>
+                    <!--                            Bill Detail-->
+                    <notebook>
+                        <page string="Bill's Detail">
+                            <field name="bill_detail">
+                                <tree string="Tree string" editable="bottom">
+                                    <field name="sequence" widget="handle"/>    <!-- for drag and drop the records -->
+                                    <field name="product" placeholder="Item Name"/>
+                                    <field name="description"/>
+                                    <field name="product_qty"/>
+                                    <field name="unit_price"/>
+                                    <field name="discount" sum="Total amount"/>
+                                    <field name="sub_total" sum="Total amount"/>
+                                </tree>
+                                <!--                                <form string="Form string">-->
+                                <!--                                    <group>-->
+                                <!--                                        <field name="product" placeholder="Item Name"/>-->
+                                <!--                                        <field name="description" placeholder="Detail the Product"/>-->
+                                <!--                                        <field name="product_qty"/>-->
+                                <!--                                        <field name="unit_price"/>-->
+                                <!--                                        <field name="sub_total" sum="Total amount"/>-->
+                                <!--                                    </group>-->
+                                <!--                                </form>-->
+
+                            </field>
+
+                        </page>
+                    </notebook>
+                    <div style="float:right; padding-right:30px; margin-top:-20px">
+                        <div style="float:left; margin-right:15px">
+                            <h6 style="margin-bottom:-10px; margin-top:35px">Total Amount</h6>
+                            <br/>
+                            <h6 style="margin-bottom:-10px">Paid Amount</h6>
+                            <br/>
+                            <h6>Left Amount</h6>
+
+                        </div>
+                        <div style="float:right; margin-top:35px">
+                            <field name="total_amount"/>
+                            <br/>
+                            <field name="paid_amount"/>
+                            <br/>
+                            <field name="left_amount"/>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:100px">
+                        <i>
+                            <separator
+                                    string="Bilal Fabrics, Sultan wala Mohallah adjecent Govt. Girls High School, Jhang."
+                                    style="font-family:shells; color:black; text-align:center; background-color:yellow"/>
+                        </i>
+                    </div>
+                </sheet>
+
+
+                <!--                <div class="oe_chatter">        -->  <!-- Chatter -->
+                <!--                    <field name="message_follower_ids" widget="mail_followers"/>-->
+                <!--                    <field name="activity_ids" widget="mail_activity"/>-->
+                <!--                    <field name="message_ids" widget="mail_thread"/>-->
+                <!--                </div>-->
+            </form>
+        </field>
+    </record>
+<!--                                                    Wizard view-->
+    <record id="bilal_wizard_view" model="ir.ui.view">
+        <field name="name">bilal.wizard.view</field>
+        <field name="model">bilal.wizard</field>
+<!--        <field name="priority" eval="16"/>-->
+        <field name="arch" type="xml">
+            <form string="Wizard of Bills">
+                <field name="product_id"/>
+                <field name="attendee_ids"/>
+
+            </form>
+        </field>
+    </record>
+
+    <act_window id="launch_session_wizard"
+                name="Add Attandee"
+                binding_model="bilal.fabrics"
+                res_model="bilal.wizard"
+                view_mode="form"
+                target="new"/>
+    <!--                                               Actions-->
+    <record id="action_bilal_fabrics" model="ir.actions.act_window">
+        <field name="name">All Records</field>
+        <field name="res_model">bilal.fabrics</field>
+        <field name="view_mode">tree,form,search,kanban</field>
+    </record>
+
+    <record id="debit_action_bilal_fabrics" model="ir.actions.act_window">
+        <field name="name">Debit Records</field>
+        <field name="res_model">bilal.fabrics</field>
+        <field name="view_mode">tree,form,search,kanban</field>
+        <field name="domain">[('bill_type','=','debit')]</field>
+        <field name="context">{'default_bill_type':'debit'}</field>
+    </record>
+
+    <record id="credit_action_bilal_fabrics" model="ir.actions.act_window">
+        <field name="name">Credit Records</field>
+        <field name="res_model">bilal.fabrics</field>
+        <field name="view_mode">tree,form,search,kanban</field>
+        <field name="domain">[('bill_type','=','credit')]</field>
+        <field name="context">{'default_bill_type':'credit'}</field>
+
+    </record>
+
+    <!--    <menuitem id="bilal_root_menu" name="Bilal Fabrics"/>-->
+    <!--    <menuitem id="bilal_sub_menu" parent="bilal_root_menu" name="Bilal Fabrics"/>-->
+    <!--    <menuitem id="bilal_fabrics_menu" name="All Customers" action="action_bilal_fabrics" parent="bilal_sub_menu"/>-->
+</odoo>

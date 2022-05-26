@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Tree View-->
+    <record id="view_courses_id" model="ir.ui.view">
+        <field name="name">view.courses.tree</field>
+        <field name="model">openacademy.course</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="responsible_id"/>
+            </tree>
+        </field>
+    </record>
+    <!--    Form View-->
+    <record id="course_form_view" model="ir.ui.view">
+        <field name="name">courses.form.view</field>
+        <field name="model">openacademy.course</field>
+        <field name="arch" type="xml">
+            <form string="Course">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Course Name"/>
+                        <h2>
+                            <field name="name"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                                <field name="responsible_id"/>
+                        </group>
+                    </group>
+                    <separator string="General Separator" colspan="2"/>
+                    <group col="2" colspan="2">
+                        <field name="description" placeholder="Description Here"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--    Search-->
+    <record id="course_search_view" model="ir.ui.view">
+        <field name="name">course.search</field>
+        <field name="model">openacademy.course</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"
+                       filter_domain="['|', ('name','ilike','self'), ('description', 'ilike', 'self')]"/>
+            </search>
+        </field>
+
+    </record>
+
+    <!--Action -->
+    <record id="course_list_action" model="ir.actions.act_window">
+        <field name="name">Course</field>
+        <field name="res_model">openacademy.course</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first Course</p>
+        </field>
+    </record>
+
+    <menuitem id="main_openacademy_menu" name="Open Academy"/>
+
+    <menuitem id="openacademy_menu" name="Open Academy" parent="main_openacademy_menu"/>
+    <menuitem id="closeacademy_menu" name="Close Academy" parent="main_openacademy_menu"/>
+
+    <menuitem id="course_menu" name="Course" parent="openacademy_menu" action="course_list_action"/>
+    <menuitem id="session_menu" name="Session" parent="openacademy_menu" action="session_list_action"/>
+
+</odoo>

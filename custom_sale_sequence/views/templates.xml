@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <template id="sale_report_serial_number_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//table[1]/thead/tr[1]/th[1]" position="before">
+                <th class="text-left">Sl. No.</th>
+            </xpath>
+            <xpath expr="//table[1]/tbody/t[2]/tr[1]/t[1]/td[1]" position="before">
+                <td class="text-left">
+                    <span t-field="line.sl_no"/>
+                </td>
+            </xpath>
+        </template>
+<!--                <template id="sale_report_serial_number_inherit" inherit_id="sale.report_saleorder_document">-->
+<!--            <xpath expr="//table[1]/thead/tr[1]/th[1]" position="before">-->
+<!--                <th class="text-left">Sl. No.</th>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[1]/tbody/t[2]/tr[1]/t[1]/td[1]" position="before">-->
+<!--                <td class="text-left">-->
+<!--        <t t-if="line.sl_no">-->
+<!--            &lt;!&ndash;                    <span t-field="line.sl_no"/>&ndash;&gt;-->
+
+<!--        </t>-->
+<!--                </td>-->
+<!--            </xpath>-->
+<!--        </template>-->
+    </data>
+</odoo>
