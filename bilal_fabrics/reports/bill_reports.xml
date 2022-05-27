@@ -4,7 +4,7 @@
 
     <data>
         <template id="bilal_bill_qweb_report_template">
-
+<!--        X-Path for Bootstrap 5-->
             <xpath expr="link[last()]" position="after">         <!-- Bootstrap Link -->
                 <link rel="stylesheet" type="text/scss" href="/bilal_fabrics/static/index.scss"/>
             </xpath>
