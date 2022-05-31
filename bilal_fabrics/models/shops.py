@@ -21,6 +21,7 @@ class Bilalfabrics(models.Model):
                     }
                 }
 
+
     def do_unpaid(self):
         for rec in self:
             rec.status = 'unpaid'
@@ -29,9 +30,9 @@ class Bilalfabrics(models.Model):
         for rec in self:
             rec.status = 'paid'
 
-    def compute_bill_count(self):  # Computed field for Bill Count
-        bill_count = self.env['bilal.fabrics'].search_count([])
-        self.bill_count = bill_count
+    # def compute_bill_count(self):  # Computed field for Bill Count
+    #     bill_count = self.env['bilal.fabrics'].search_count([])
+    #     self.bill_count = bill_count
 
     # For Report Print
     def report_print_button(self):
@@ -58,12 +59,11 @@ class Bilalfabrics(models.Model):
         num = super(Bilalfabrics, self).create(vals)
         return num
 
-    def unlink(self):       # Record deleting Condition
+    def unlink(self):  # Record deleting Condition
         for rec in self:
             if rec.bill_type == 'credit':
                 raise UserError(_("Record can't be deleted until 'Credit' type."))
         return super(Bilalfabrics, self).unlink()
-
 
     name = fields.Char(string="Name", track_visibility='always')
     empty = fields.Char(string=".", readonly='1')
@@ -81,8 +81,8 @@ class Bilalfabrics(models.Model):
         ('putin', 'Vladimir Putin'),
     ], default="bilal", track_visibility='always')
     status = fields.Selection([('paid', 'Paid'), ('unpaid', 'Unpaid')], string="Status", default="paid")
-    bill_count = fields.Char(string="Bill # ", compute='compute_bill_count')  # computed fields
-    user_company = fields.Many2one('res.company', string='company', default= lambda self: self.env.user.company_id.id)
+    # bill_count = fields.Char(string="Bill # ", compute='compute_bill_count')  # computed fields
+    user_company = fields.Many2one('res.company', string='company', default=lambda self: self.env.user.company_id.id)
 
     total_amount = fields.Integer()
     paid_amount = fields.Integer()

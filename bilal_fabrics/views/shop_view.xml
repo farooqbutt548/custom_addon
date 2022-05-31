@@ -24,7 +24,7 @@
         <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <kanban string="Kanban Leadger of Bills"
-                    class="o_res_partner_kanban">      <!-- # decoration-danger="bill_type=='credit'"  -->
+                    class="o_res_partner_kanban"> <!-- or class= 'o_kanban_mobile' -->
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click"

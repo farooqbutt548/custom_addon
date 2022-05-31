@@ -4,7 +4,7 @@
 
     <data>
         <template id="bilal_bill_qweb_report_template">
-<!--        X-Path for Bootstrap 5-->
+            <!--        X-Path for Bootstrap 5-->
             <xpath expr="link[last()]" position="after">         <!-- Bootstrap Link -->
                 <link rel="stylesheet" type="text/scss" href="/bilal_fabrics/static/index.scss"/>
             </xpath>
@@ -31,7 +31,6 @@
                                     </h3>
                                 </u>
                                 <br/>
-                                <t t-set="count" t-value="1"/>
                                 <ul>
                                     <div style="display:flex">
                                         <div style="">
@@ -79,12 +78,14 @@
                                     <th style="width:10%;">Discount</th>
                                     <th style="width:11%;">Subtotal</th>
                                 </tr>
-
+<!--                                Variables-->
+                                <t t-set="count" t-value="0"/>
                                 <t t-set="grand_total" t-value="0"/>
-                                <!--                                <t t-set="total_subtoal" t-value="0"/>-->
+
                                 <t t-foreach="o.bill_detail" t-as="b">
+                                    <t t-set="count" t-value="count + 1"/>
                                     <t t-set="grand_total" t-value="grand_total+b.sub_total"/>
-                                    <!--                                    <tr class="nth-child-even" style="height:35px; text-align:center; ">-->
+
                                     <tr style="height:35px; text-align:center; ">
                                         <td>
                                             <span t-esc="count"/>
@@ -108,7 +109,6 @@
                                             <span t-field="b.sub_total"/>
                                         </td>
                                     </tr>
-                                    <t t-set="count" t-value="count + 1"/>
                                 </t>
                             </table>
                             <!--                                Grand total-->
@@ -129,24 +129,6 @@
                                 </div>
                             </div>
 
-
-                            <!--                            <div style="float:right; padding-right:30px; margin-top:-20px">-->
-                            <!--                                <div style="float:left; margin-right:15px">-->
-                            <!--                                    <h6 style="margin-bottom:-10px; margin-top:35px">Total Amount</h6>-->
-                            <!--                                    <br/>-->
-                            <!--                                    <h6 style="margin-bottom:-10px">Paid Amount</h6>-->
-                            <!--                                    <br/>-->
-                            <!--                                    <h6>Left Amount</h6>-->
-
-                            <!--                                </div>-->
-                            <!--                                <div style="float:right; margin-top:35px">-->
-                            <!--                                    <field name="total_amount"/>-->
-                            <!--                                    <br/>-->
-                            <!--                                    <field name="paid_amount"/>-->
-                            <!--                                    <br/>-->
-                            <!--                                    <field name="left_amount"/>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
                         </div>
                         <div style="position: absolute; bottom:-1120px; width:95%">
                             <p class="h5 p-2 bg-secondary text-white text-center">Returnable
@@ -211,6 +193,7 @@
             file="bilal_fabrics.bilal_bill_qweb_report_template"
             paperformat="bilal_fabrics.bilal_fabrics_paper_bill_id"
             menu="False"
-
     />
+
+
 </odoo>
